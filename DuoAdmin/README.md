@@ -1,5 +1,5 @@
 # Duo Admin API Sample Scripts
-This repository contains sample Python scripts utilizing the Cisco DUO Admin API's. It is available for use by the Cisco DevNet community through Code Exchange.
+This repository folder contains sample Python scripts utilizing the Cisco DUO Admin API's. It is available for use by the Cisco DevNet community through Code Exchange.
 For more information on the Duo Admin API, please see the following link: https://duo.com/docs/adminapi
 
 ## Duo Requirements
@@ -11,12 +11,12 @@ For more information on the Duo Admin API, please see the following link: https:
 
 1. Ensure Python 3 is installed.
    * To download and install Python 3, please visit https://www.python.org.
-2. Clone the GitHub sample script repository, create a Python virtual environment and install Python dependencies.
+2. Clone the GitHub Cisco Security API's Start Now repository, create a Python virtual environment and install Python dependencies.
 
 ```bash
-git clone https://github.com/hbill75/duo_admin_sample_scripts.git
+git clone https://github.com/CiscoDevNet/CiscoSecurityAPIsStartNow.git
 
-cd duo_admin_api_sample_scripts
+cd CiscoSecurityAPIsStartNow/DuoAdmin
 
 python3 -m venv venv
 
@@ -268,4 +268,4 @@ Check out our [Duo Comminity](https://community.duo.com/) to pose a question or 
 
 ## Licensing info
 
-This code is licensed under the BSD 3-Clause License. See [LICENSE](LICENSE) for details.
+See [LICENSE](../LICENSE) for details.
