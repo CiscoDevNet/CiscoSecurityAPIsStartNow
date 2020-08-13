@@ -93,12 +93,10 @@ def sign(method=METHOD,
     # return headers
     return {'Date': now, 'Authorization': 'Basic %s' % str(encoded_auth, 'UTF-8')}
 
-url = "https://{}{}".format(API_HOSTNAME, API_PATH)
+if __name__ == "__main__":
 
-body = PARAMS
-
-request_headers = sign()
-
-association = requests.request(METHOD, url, data=body, headers=request_headers, verify=False)
-
-pprint.pprint(json.loads(association.content))
+    url = "https://{}{}".format(API_HOSTNAME, API_PATH)
+    payload = PARAMS
+    request_headers = sign()
+    association = requests.request(METHOD, url, data=payload, headers=request_headers, verify=False)
+    pprint.pprint(json.loads(association.content))

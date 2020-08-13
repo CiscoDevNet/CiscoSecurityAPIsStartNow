@@ -88,11 +88,9 @@ def sign(method=METHOD,
     # return headers
     return {'Date': now, 'Authorization': 'Basic %s' % str(encoded_auth, 'UTF-8')}
 
+if __name__ == "__main__":
 
-url = "https://{}{}?username={}".format(API_HOSTNAME, API_PATH, USERNAME)
-
-request_headers = sign()
-
-user = requests.request(METHOD, url, headers=request_headers, verify=False)
-
-pprint.pprint(json.loads(user.content))
+    url = "https://{}{}?username={}".format(API_HOSTNAME, API_PATH, USERNAME)
+    request_headers = sign()
+    user = requests.request(METHOD, url, headers=request_headers, verify=False)
+    pprint.pprint(json.loads(user.content))
