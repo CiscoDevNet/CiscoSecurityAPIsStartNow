@@ -23,6 +23,12 @@ SOFTWARE.
 # API Endpoints
 SWC = {"host": "{{org-id}}.obsrvbl.com"}
 
+WXT = {"host": "webexapis.com"}
+
 
 # API Keys
 SWC_API_KEY = "ApiKey {{api-key}}"
+
+# Webex Teams
+WEBEX_TEAMS_ACCESS_TOKEN =
+WEBEX_TEAMS_ROOM_ID =
