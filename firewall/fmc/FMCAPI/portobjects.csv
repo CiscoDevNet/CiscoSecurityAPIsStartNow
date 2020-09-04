@@ -1,0 +1,6 @@
+﻿name,description,protocol,port,type,icmpType,code
+port-1,port-1,tcp,443,ProtocolPortObject,,
+port-2,port-2,udp,80,ProtocolPortObject,,
+port-3,port-3,,,ICMPV4Object,3,0
+port-4,port-4,,,ICMPV6Object,2,0
+port-5,port-5,udp,123,ProtocolPortObject,,

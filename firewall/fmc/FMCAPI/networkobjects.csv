@@ -1,0 +1,6 @@
+﻿name,description,type,value
+Host-1,Host-1,Host,10.10.10.10
+Host-2,Host-2,Host,10.10.10.1
+Network-1,Network-1,Network,10.10.9.0/24
+Host-3,Host-3,Host,10.10.10.2
+Range-1,Rannge-1,Range,10.20.20.1-10.20.20.20
