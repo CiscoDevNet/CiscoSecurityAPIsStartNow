@@ -9,7 +9,7 @@
  - Range Objects
 
 
-This workflow requires CSV File as an input - Sample CSV file is provided in this folder itself. Fill the CSV file with required input and run the "network-bulkpush.py"
+This workflow requires CSV File as an input - Sample CSV file (networkobjects.csv) is provided in this folder itself. Fill the CSV file with required input and run the "bulkpush_networkobjects.py"
 
 
 ### Port Objects Bulk Push 
@@ -23,10 +23,10 @@ This API workflow can push all three types of port objects in bulk to the FMC:
  - ICMPv6 Objects - Please make sure the ICMP type and code have bee validated.
 
 
-This workflow requires CSV File as an input - Sample CSV file is provided in this folder itself. Fill the CSV file with required input and run the "port-bulkpush.py"
+This workflow requires CSV File as an input - Sample CSV file (portobjects.csv) is provided in this folder itself. Fill the CSV file with required input and run the "bulkpush_portobjects.py"
 
 ### URL Objects Bulk Push 
 
 This API workflow can push URL objects in bulk to the FMC.
 
-This workflow requires CSV File as an input - Sample CSV file is provided in this folder itself. Fill the CSV file with required input and run the "url-bulkpush.py"
+This workflow requires CSV File as an input - Sample CSV file (urlobjects.csv) is provided in this folder itself. Fill the CSV file with required input and run the "bulkpush_urlobjects.py"
