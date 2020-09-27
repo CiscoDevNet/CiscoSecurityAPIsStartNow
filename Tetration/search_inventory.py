@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Python example script showing SecureX Cloud Analytics Alerts.
+"""Python example script showing Cisco Secure Workload (Tetration).
 
 Copyright (c) 2020 Cisco and/or its affiliates.
 This software is licensed to you under the terms of the Cisco Sample
@@ -28,8 +28,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 # FUNCTIONS
 
-# Get Applications from Tetration
-
+# Search Inventory for IP address.
 
 def search_inventory(
         value,
