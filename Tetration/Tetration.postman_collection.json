@@ -1,0 +1,783 @@
+{
+	"info": {
+		"_postman_id": "f5ff452a-017e-4ca2-b340-63ae69f36a09",
+		"name": "Tetration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Applications",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"id": "63a6c448-22d5-4270-9572-1d17977f92db"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/applications",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Applications ID Details",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4dbd88c4-8d29-4718-b84c-f995fca2d773",
+						"exec": [
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/applications/{app-id}/details",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"applications",
+						"{app-id}",
+						"details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Applications Scopes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4ebff5f5-5c54-4fa1-b943-16826b3bef2d",
+						"exec": [
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/app_scopes",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"app_scopes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Applications Scopes ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7104e9f7-5ea8-45fc-b694-56c235f96899",
+						"exec": [
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/app_scopes/{scope-id}/",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"app_scopes",
+						"{scope-id}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Inventory Filters",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0be5d92d-4a72-459a-a64e-606f0df0b14f",
+						"exec": [
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/filters/inventories/5f1596c9497d4f110fbf0af1",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"filters",
+						"inventories",
+						"5f1596c9497d4f110fbf0af1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Inventory Filters ID",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b1d3c8f7-3386-4f4f-9822-612738848336",
+						"exec": [
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/applications/{filter-id}",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"applications",
+						"{filter-id}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Flowsearch Dimensions",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"id": "eaac4d73-67cb-455e-8d67-3988ad078d7b"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/flowsearch/dimensions",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"flowsearch",
+						"dimensions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Inventory by IP Address",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2d7c981c-7cc4-498b-b58a-5601b8f91597",
+						"exec": [
+							"//Generate a UTC Timestamp with the Tetration expected format that can be used in the request header",
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"//Calculate the body checksum if it is a POST or PUT request",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"//Calculate the Digest which is generated based on the timestamp, checksum, additional header parameters, and the secret key",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					},
+					{
+						"key": "X-Tetration-Cksum",
+						"value": "{{tetchecksum}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filter\": {\n        \"type\": \"eq\",\n        \"field\": \"ip\",\n        \"value\": \"{ip-add}\"\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/inventory/search",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"inventory",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Inventory by Hostname",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0e1b61c3-a152-408a-8d4d-c8686cc7fd9e",
+						"exec": [
+							"//Generate a UTC Timestamp with the Tetration expected format that can be used in the request header",
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"//Calculate the body checksum if it is a POST or PUT request",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"//Calculate the Digest which is generated based on the timestamp, checksum, additional header parameters, and the secret key",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					},
+					{
+						"key": "X-Tetration-Cksum",
+						"value": "{{tetchecksum}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"filter\": {\n        \"type\": \"eq\",\n        \"field\": \"host_name\",\n        \"value\": \"{hostname}\"\n    }\n}"
+				},
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/inventory/search",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"inventory",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Flows by Hostname",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c2c8da40-15ad-486c-8ef1-f5ed37a340d1",
+						"exec": [
+							"//Generate a UTC Timestamp with the Tetration expected format that can be used in the request header",
+							"function pad(n) {",
+							"     return (n < 10) ? '0' + n : n;",
+							"}",
+							"",
+							"var now = new Date();",
+							"var month = now.getUTCMonth() + 1",
+							"var timestamp = now.getUTCFullYear()+'-'+pad(month)+'-'+pad(now.getUTCDate())+'T'+pad(now.getUTCHours())+':'+pad(now.getUTCMinutes())+':'+pad(now.getUTCSeconds())+'+0000';",
+							"",
+							"postman.setGlobalVariable(\"timestamp\",timestamp);",
+							"",
+							"//Calculate the body checksum if it is a POST or PUT request",
+							"var checksum = '';",
+							"",
+							"if (request.method == 'POST' || request.method == 'PUT') {",
+							"    checksum = CryptoJS.SHA256(request.data)",
+							"    checksum = CryptoJS.enc.Hex.stringify(checksum)",
+							"}",
+							"",
+							"postman.setGlobalVariable(\"tetchecksum\", checksum);",
+							"",
+							"//Calculate the Digest which is generated based on the timestamp, checksum, additional header parameters, and the secret key",
+							"var signer = request.method + '\\n/openapi/v1/' + request.url.split('/openapi/v1/')[1] + '\\n' + checksum + '\\napplication/json\\n' + timestamp + '\\n';",
+							"",
+							"var digestauth = CryptoJS.HmacSHA256(signer, environment[\"API_SECRET\"]);",
+							"digestauth = CryptoJS.enc.Base64.stringify(digestauth);",
+							"",
+							"postman.setGlobalVariable(\"digestauth\", digestauth);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Id",
+						"value": "{{API_KEY}}"
+					},
+					{
+						"key": "Timestamp",
+						"value": "{{timestamp}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{digestauth}}"
+					},
+					{
+						"key": "X-Tetration-Cksum",
+						"value": "{{tetchecksum}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"t0\": \"2020-09-23T00:00:00-0500\",\n    \"t1\": \"2020-09-24T00:00:00-0500\",\n    \"filter\": {\n        \"type\": \"eq\",\n        \"field\": \"src_hostname\",\n        \"value\": \"{hostname\"\n    },\n    \"scopeName\": \"{Scope-Name}\",\n    \"limit\": 100\n}"
+				},
+				"url": {
+					"raw": "https://{{URL}}/openapi/v1/flowsearch",
+					"protocol": "https",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"openapi",
+						"v1",
+						"flowsearch"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
