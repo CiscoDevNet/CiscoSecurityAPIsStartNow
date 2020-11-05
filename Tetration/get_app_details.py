@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Python example script showing Cisco Security Workload (Tetration).
+"""Python example script showing SecureX Cloud Analytics Alerts.
 
 Copyright (c) 2020 Cisco and/or its affiliates.
 This software is licensed to you under the terms of the Cisco Sample
@@ -17,6 +17,8 @@ or implied.
 
 
 import json
+from typing import List, Any
+
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from tetpyclient import RestClient
@@ -28,7 +30,8 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 # FUNCTIONS
 
-# Search Inventory for IP address.
+# Get Applications from Tetration
+
 
 def search_inventory(
         value,
@@ -67,8 +70,6 @@ def search_inventory(
     else:
         print(f"IP Address {value} can not be found. Error code {response.status_code}.")
 
-# Search Application Scope assigned to IP address.
-
 def get_app_scope(
         scope_id,
     host=env.TET.get("host"),
@@ -98,8 +99,6 @@ def get_app_scope(
     else:
         print(f"Application Scope ID {scope_id} can not be found. Error code {response.status_code}.")
 
-# Get all Applications.
-
 def get_applications(
     host=env.TET.get("host"),
     api_key=env.TET_API_KEY,
@@ -127,8 +126,6 @@ def get_applications(
     # If response code is anything but 200, print error message with response code
     else:
         print(f"Unable to find any Applications. Error code {response.status_code}.")
-
-# Get detailed information of App ID.
 
 def get_application_details(
         id,
@@ -170,23 +167,11 @@ if __name__ == "__main__":
     hostname = inventory["results"][0]["host_name"]
     os = inventory["results"][0]["os"]
     os_version = inventory["results"][0]["os_version"]
-
-    # Get the Application Scope ID
-    scope_ids = []
-
-    for scope in inventory["results"][0]["tags_scope_id"]:
-        scope_ids.append(scope)
-
-    # print(scope_ids)
-
-    # Parse the most detailed App Scope ID
-    app_scope_id = scope_ids[-1]
-    # print(last_scope)
+    app_scope_id = inventory["results"][0]["tags_scope_id"]
 
     # Get Application Scope Details
     app_scope = get_app_scope(app_scope_id)
     app_scope_name = app_scope["name"]
-
     # print(json.dumps(app_scope,indent=4))
 
     # Get all Application IDs
@@ -207,5 +192,10 @@ if __name__ == "__main__":
 
             print(f"\nIP address {ip} has been identified as hostname {hostname} running {os} {os_version} "
                   f"\nfound in Application Scope {app_scope_name} and Application name {app_name}.")
+
+        else:
+            print(f"\nIP address {ip} has been identified as hostname {hostname} running {os} {os_version}."
+                  f"\nThere is no application associated with this IP address")
+
 
 # End of File

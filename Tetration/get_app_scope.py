@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Python example script showing Cisco Secure Workload (Tetration).
+"""Python example script showing SecureX Cloud Analytics Alerts.
 
 Copyright (c) 2020 Cisco and/or its affiliates.
 This software is licensed to you under the terms of the Cisco Sample
@@ -28,7 +28,8 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 # FUNCTIONS
 
-# Search Inventory for IP address.
+# Get Applications from Tetration
+
 
 def search_inventory(
         value,
@@ -66,8 +67,6 @@ def search_inventory(
     # If response code is anything but 200, print error message with response code
     else:
         print(f"IP Address {value} can not be found. Error code {response.status_code}.")
-
-# Search Application Scope assigned to IP address.
 
 def get_app_scope(
         scope_id,
@@ -110,17 +109,7 @@ if __name__ == "__main__":
     hostname = inventory["results"][0]["host_name"]
     os = inventory["results"][0]["os"]
     os_version = inventory["results"][0]["os_version"]
-
-    # Get the Application Scope ID
-    scope_ids = []
-
-    for scope in inventory["results"][0]["tags_scope_id"]:
-        scope_ids.append(scope)
-
-    # print(scope_ids)
-
-    app_scope_id = scope_ids[-1]
-    # print(last_scope)
+    app_scope_id = inventory["results"][0]["tags_scope_id"]
 
     # Get Application Scope Details
     app_scope = get_app_scope(app_scope_id)
