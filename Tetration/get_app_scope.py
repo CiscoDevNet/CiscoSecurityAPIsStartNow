@@ -61,12 +61,16 @@ def search_inventory(
     if response.status_code == 200:
         # JSON Response
         inventory = response.json()
-
-        return inventory
+        if inventory["results"]:
+            return inventory
+        else:
+            print(f"\nERROR: IP Address {value} can not be found.")
+            exit()
 
     # If response code is anything but 200, print error message with response code
     else:
-        print(f"IP Address {value} can not be found. Error code {response.status_code}.")
+        print(f"\nSomething went wrong. Error code {response.status_code}.")
+        exit()
 
 def get_app_scope(
         scope_id,
@@ -109,7 +113,12 @@ if __name__ == "__main__":
     hostname = inventory["results"][0]["host_name"]
     os = inventory["results"][0]["os"]
     os_version = inventory["results"][0]["os_version"]
-    app_scope_id = inventory["results"][0]["tags_scope_id"]
+
+    # Find Scope ID associated with inventory search
+    if type(inventory["results"][0]["tags_scope_id"]) is str:
+        app_scope_id = inventory["results"][0]["tags_scope_id"]
+    else:
+        app_scope_id = inventory["results"][0]["tags_scope_id"][-1]
 
     # Get Application Scope Details
     app_scope = get_app_scope(app_scope_id)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""Python example script showing Cisco Secure Workload (Tetration).
+"""Python example script showing SecureX Cloud Analytics Alerts.
 
 Copyright (c) 2020 Cisco and/or its affiliates.
 This software is licensed to you under the terms of the Cisco Sample
@@ -28,7 +28,8 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 # FUNCTIONS
 
-# Search Inventory for IP address.
+# Get Applications from Tetration
+
 
 def search_inventory(
         value,
@@ -60,12 +61,16 @@ def search_inventory(
     if response.status_code == 200:
         # JSON Response
         inventory = response.json()
-
-        return inventory
+        if inventory["results"]:
+            return inventory
+        else:
+            print(f"\nERROR: IP Address {value} can not be found.")
+            exit()
 
     # If response code is anything but 200, print error message with response code
     else:
-        print(f"IP Address {value} can not be found. Error code {response.status_code}.")
+        print(f"\nSomething went wrong. Error code {response.status_code}.")
+        exit()
 
 
 # If this script is the "main" script, run...
