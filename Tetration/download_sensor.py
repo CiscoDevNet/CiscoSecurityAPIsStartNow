@@ -220,10 +220,13 @@ def agent_chooser( ):
 ######################################################################
 if __name__ == "__main__":
 
+    # Gracefully exit if API creds not populated
     check_API_creds
 
-    # Prompt user to enter application scope and download registration token
-    get_reg_token()
+    # Prompt user to enter application scope. This is only needed
+    # for future use when we decide to attempt installing the agent
+    # that we download
+    # get_reg_token()
 
     # Allow user to choose agent options
     agent_options = agent_chooser()

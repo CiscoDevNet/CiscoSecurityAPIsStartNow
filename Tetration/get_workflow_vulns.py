@@ -51,7 +51,8 @@ def get_tet_json(request_str,
 
     # If response code is anything but 200, print error message with response code
     else:
-        print(f"Error processing GET request on {request_str}. Error code: {response.status_code}.")
+        #print(f"Error processing GET request on {request_str}. Error code: {response.status_code}.")
+        return None 
 
 
 ######################################################################
@@ -63,7 +64,6 @@ def get_vulnerabilities ( sensor_data ):
     MIN_CVSS_V2_SCORE = 8.0
 
     for sensor in sensor_data["results"]:
-        print_header = True
         sensor_hostname = sensor["host_name"]
         sensor_uuid = sensor["uuid"]
         for nic in sensor["interfaces"]:
@@ -74,13 +74,22 @@ def get_vulnerabilities ( sensor_data ):
 
         vulnerabilities = get_tet_json("/workload/" + sensor_uuid + "/vulnerabilities");
 
+        # Continue to next sensor if this sensor has no vulnerabilities to print
+        if vulnerabilities is None:
+            continue
+
+        # First loop through vulns to determine if we need to print the table header
+        for vul in vulnerabilities:
+            if ('v2_score' in vul) and ('v3_score' in vul) and (vul['v2_score'] >= MIN_CVSS_V2_SCORE ):
+                print_header = True
+
         # If V2 CVSS score >= MIN_CVSS_V2_SCORE, print the CVE ID, v2/v3 scores, package name and version
         for vul in vulnerabilities:
             if (print_header):
                 print ("\n{:<18} {:<16} {:<16} {:<10} {:<10} {:<16} {:20}".format(
                        'HOSTNAME', 'IP', 'CVE ID', 'SCORE(V2)', 'SCORE(V3)', 'PACKAGE', 'VERSION'))
             print_header = False
-            if ('v2_score' in vul) and ( vul['v2_score'] >= MIN_CVSS_V2_SCORE ):
+            if ('v2_score' in vul) and ('v3_score' in vul) and (vul['v2_score'] >= MIN_CVSS_V2_SCORE ):
                 print ("{:<18} {:16} {:<16} {:<10} {:<10} {:<16} {:20}".format(
                        sensor_hostname, sensor_ip, vul['cve_id'], vul['v2_score'], vul['v3_score'],
                        vul['package_infos'][0]['name'], vul['package_infos'][0]['version']))
