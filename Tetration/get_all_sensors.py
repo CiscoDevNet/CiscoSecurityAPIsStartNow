@@ -68,7 +68,7 @@ def get_sensors(
 ######################################################################
 def print_sensors( sensor_data ):
 
-    print ('\033[1m',"{:<20} {:<12} {:<20} {:<30}".format('HOSTNAME', 'TYPE','IP ADDRESS', 'PLATFORM'), '\033[0m')
+    print ('\033[1m',"{:<24} {:<12} {:<20} {:<30}".format('HOSTNAME', 'TYPE','IP ADDRESS', 'PLATFORM'), '\033[0m')
     for sensor in sensor_data["results"]:
         sensor_hostname = sensor["host_name"]
         sensor_type = sensor["agent_type"]
@@ -80,7 +80,7 @@ def print_sensors( sensor_data ):
                 sensor_ip = nic["ip"]
                 break
 
-        print ("{:<20} {:<12} {:<20} {:<30}".format(sensor_hostname, sensor_type, sensor_ip, sensor_platform))
+        print ("{:<24} {:<12} {:<20} {:<30}".format(sensor_hostname, sensor_type, sensor_ip, sensor_platform))
 
 ######################################################################
 # MAIN 
